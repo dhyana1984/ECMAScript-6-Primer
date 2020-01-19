@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>constAndletExample</title>
+</head>
+<body>
+    
+</body>
+<script>
+var a = []
+for (var i = 0; i < 10; i++) {
+    a[i] = function () {
+        console.log(i)
+    }
+}
+
+a[6]() //10 因为i 用var定义，所有的a的元素都指向i
+
+var a = []
+for (let i = 0; i < 10; i++) {
+    a[i] = function () {
+        console.log(i)
+    }
+}
+
+a[6]() //6 i是用let定义的，每个i只在本轮循环有效
+
+
+</script>
+</html>
