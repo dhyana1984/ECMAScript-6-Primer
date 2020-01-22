@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>padStartpadEndExample</title>
+</head>
+<body>
+    
+    <script>
+    const str = 'x'
+    console.log(str.padStart(5,'ab')) //padStart补全头部，第一个参数是最小长度，第二个参数是用来补全的字符串
+    console.log(str.padEnd(6,'tg'))//补全尾部
+    //如果原字符串大于等于最小长度，返回原字符串
+    console.log('asdf'.padEnd(3,'kl'))
+    //省略第二个参数用空格补全
+    console.log(str.padEnd(3))
+    </script>
+</html>
