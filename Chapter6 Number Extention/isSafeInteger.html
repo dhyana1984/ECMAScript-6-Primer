@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+//判断是不是落在-2^53到2^53之间的整数
+Number.isSafeInteger(123) // true
+
+//需要对每个参与运算的数字进行验证,否则可能结果错误
+//返回9007199254740992, 但是正确结果应该是9007199254740993
+//因为9007199254740993不是安全整数，但是Number.isSafeInteger返回安全结果，9007199254740993只能以9007199254740992存储
+Number.isSafeInteger(9007199254740993 - 990) 
+
+</script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+//Math.trunc去掉小数，保留整数
+console.log(Math.trunc(1.2)) //1
+console.log(Math.trunc('1.2')) //1, 先调用Number()转化为数字，然后再调用Math.trunc
+//对于空值和无法截取整数的值，返回NaN
+Math.trunc('foo') //NaN
+
+//判断一个数到底是正数，负数或者0
+Math.sign(5) //1
+Math.sign(-5) //-1
+Math.sign(0) //0
+Math.sign('123') //1 ，对于非数字，先转化为数字
+Math.sign('foo') //NaN
+
+//求立方根
+Math.cbrt(9) //3
+
+//返回所有参数平方和的平方根
+Math.hypot(3, 4, 5) //7.071， 求50的平方根
+
+//指数运算
+console.log( 2 **2) //4
+console.log(2**3) //8
+// a **= 2 等同于 a = a *2
+
+
+
+</script>
+</html>
