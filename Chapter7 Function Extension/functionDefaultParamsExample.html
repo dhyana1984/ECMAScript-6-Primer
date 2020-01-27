@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+var x = 1
+function foo(x, y = function(){x=2}) { //参数里的x是单独的作用域，当参数有默认值时会形成一个单独的作用域
+    var x=3 // 由于这里是var x =3，所以这里的x和参数里的x以及外层x不是同一个 
+    y()
+    console.log(x)
+}
+
+foo() //3
+console.log(x) //1
+
+var t = 1
+function foo1(t, y = function(){t=2}) {
+    t=3 //这里的t就是参数里的t
+    y() //t 被重写
+    console.log(t)
+}
+
+foo1() //2
+console.log(t) //1 外层t
+
+//指定某一参数不得省略，否则报错
+function  throwIfMissing() {
+    throw new Error("Missing parameters")
+}
+//如果没有参数，则执行throwIfMissing函数，throwIfMissing带圆括号，表示在运行时执行，如果参数被赋值就不会执行
+function fff(mustBeProvided = throwIfMissing()){
+    return mustBeProvided
+}
+
+
+//将默认参数设置为undefined表明该参数可以省略
+function exampeFunction(optional = undefined){
+    
+}
+
+</script>
+</html>
