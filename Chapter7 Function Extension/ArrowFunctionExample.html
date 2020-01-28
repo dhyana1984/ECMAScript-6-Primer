@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    const f = function (t) {
+        return t
+    }
+    //等同于
+    const f1 = t => t
+
+    const sum1 = function (a, b) {
+        return a + b
+    }
+    //等同于
+    const sum2 = (a, b) => a + b
+    //等同于
+    const sum3 = (a, b) => { return a + b }
+
+
+    //和rest结合用
+    const numbers = (...nums) => nums
+    numbers(1, 2, 3, 4, 5) // [1,2,3,4,5]
+
+    const headAndTail = (head, ...tail) => [head, tail]
+    headAndTail(1,2,3,4,5) //[1,[1,2,3,4,5]]
+
+    //这段代码中只有一个this,就是foo的this, 箭头函数没有this, 箭头函数的this就是外层的this
+    function foo() {
+        return () =>{
+            return () =>{
+                return () =>{
+                    console.log('id:',this.id)
+                }
+            }
+        }
+    }
+
+    const f = foo.call({id:1})
+
+    const t1 = f.call({id:2})()() //id: 1
+    const t2 = f().call({id:2})() //id: 1
+    const t3 = f()().call({id:4}) //id: 1
+</script>
+
+</html>
