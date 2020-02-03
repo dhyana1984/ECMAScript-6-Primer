@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //对象解构，将未分配的属性复制到扩展运算符声明的变量上
+    let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 }
+    console.log(x) //1
+    console.log(y) //2
+    console.log(z)  //{a:3, b:4}
+
+    //解构赋值是浅复制
+    let obj = { a: { b: 1 } }
+    let { ...t } = obj
+    obj.a.b = 2
+    console.log(t.a.b)//2
+
+
+    //完整克隆一个对象
+    const obj = { a: 1, b: 2 }
+    const clone = Object.assign(
+        Object.create(Object.getPrototypeOf(obj)),
+        obj
+    )
+
+    //合并两个对象
+    const a = { a: 1 }
+    const b = { b: 2 }
+    let ab = { ...a, ...b }
+    //等同于
+    ab = Object.assign({}, a, b)
+
+    
+
+</script>
+
+</html>

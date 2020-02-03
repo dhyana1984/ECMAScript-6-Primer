@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+//对象里面函数简写, 简洁写法中属性名总是字符串
+const exampleObj = {
+    foo: 123, //属性
+    func(){     //函数
+        return 123
+    }
+}
+
+//如果方法是一个Generator函数，前面要加星号
+const obj_gen = {
+    * m(){
+        yield 'hello world'
+    }
+}
+
+
+//使用表达式作为属性名，要将表达式放在方括号内
+const propKey = 'foo1'
+let obj = {
+    foo : true,
+    abc: 123,
+    [propKey]: true, //属性名用表达式的话要放在方括号内
+    ['a'+'b'] : 123
+}
+
+console.log(obj.foo1) //true
+
+//表达式还可以用于定义方法名
+obj = {
+    ['h'+'ello'](){
+        return 'hi'
+    }
+}
+
+console.log(obj.hello()) //hi
+
+</script>
+</html>
