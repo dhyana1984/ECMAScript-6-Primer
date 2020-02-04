@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //Symbol函数的参数只表示对当前Symbol值得描述，因此相同参数的Symbol函数返回值是不相等的
+    const s1 = Symbol('a')
+    const s2 = Symbol('a')
+
+    console.log(s1 === s2) // false
+
+
+    //在对象内部，使用Symbol值定义属性时，Symbol值必须放在方括号中, 否则就是表示字符串而不是Symbol
+    let s = Symbol()
+    let obj = {
+        [s](str) { console.log(str) }
+    }
+    //在调用Symbol类型的属性名时也不能用点号，因为点号后面是字符串
+    obj[s](123)
+
+
+    //消除魔术字符串
+    const cashType = {
+        cash: Symbol(),
+        coin: Symbol()
+    }
+    console.log(cashType.cash === cashType.coin) // false
+
+    //Symbol.for()会搜索已有的key存不存在，存在的话返回已有的，否则新建一个Symbol值
+    const t1 = Symbol.for('b')
+    const t2 = Symbol.for('b')
+    console.log(t1 === t2) //true
+</script>
+
+</html>
