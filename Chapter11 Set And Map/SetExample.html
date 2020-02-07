@@ -12,12 +12,51 @@
 
 <script>
 
-//Set里面判断是否相等和===判断相等不同的地方就在于NaN，Set认为NaN都是同一对象，但是===相反
+//Set里面判断是否相等和===判断相等不同的地方就在于NaN，Set认为NaN都是相同的，但是===相反
 let set = new Set()
 const a=NaN
 const b=NaN
 set.add(a)
 set.add(b)
 console.log(set) //NaN
+
+
+//Set认为两个对象总是不相等的
+let set1 = new Set()
+const ob1 = {}
+const ob2 = {}
+
+set1.add(ob1)
+set1.add(ob2)
+console.log(set1) // {},{}
+
+//去重
+const arr = [1,2,3,3,3]
+const dedupe = (array) =>{
+    return Array.from(new Set(array))
+}
+console.log(dedupe(arr)) // [1,2,3]
+
+//使用扩展运算符去重
+const dedupe2 = (array) =>{
+    return [...new Set(array)]
+}
+console.log(dedupe2(arr)) // [1,2,3]
+
+
+//并集
+const arrA = new Set([1,2,3])
+const arrB = new Set([4,3,2])
+
+const union = new Set([...arrA,...arrB]) 
+console.log(union) //1,2,3,4
+
+//交集
+let intersect = new Set([...arrA].filter(x=>arrB.has(x)))
+console.log(intersect)
+
+//差集
+let difference = new Set([...arrA].filter(x=> !arrB.has(x)))
+console.log(difference)
 </script>
 </html>
