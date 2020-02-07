@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+
+//Set里面判断是否相等和===判断相等不同的地方就在于NaN，Set认为NaN都是同一对象，但是===相反
+let set = new Set()
+const a=NaN
+const b=NaN
+set.add(a)
+set.add(b)
+console.log(set) //NaN
+</script>
+</html>
