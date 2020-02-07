@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //使用双元素数组数据结构当做map构造函数，创建新map
+    const set = new Set([ //也可以直接用数组
+        ['foo', 1],
+        ['bar', 2]
+    ])
+
+    const m1 = new Map(set)
+    console.log(m1.get('foo')) // 1
+
+    //读取一个未知的键，返回undefined
+    new Map().get('aaaa') //undefined
+
+    //set方法返回当前对象，可以用链式写法
+    const map1 = m1.set(1,'a')
+                   .set(2,'b')
+                   .set(3,'c')
+
+    //map解构转为数组解构比较快速的方法就是结合扩展运算符
+    const array1 = [...map1.keys()]
+    console.log(array1) // ['foo', 'bar', 1, 2, 3]
+
+    //【...map】和 [...map.entries()]相同
+
+    //map没有filter和map方法，需要和数组配合实现
+    const mapFilter = new Map(
+        [...map1].filter(([k,v]) => k==='foo')
+    )
+    console.log(mapFilter) // {'foo'=>1}
+
+</script>
+
+</html>
