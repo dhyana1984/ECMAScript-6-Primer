@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    //Proxy构造函数
+    // var proxy = new Proxy(target, handler)，target是要拦截的目标，handler是拦截行为
+
+    //拦截读取属性行为
+    //Proxy构造函数第一个参数是要代理的目标对象，第二个参数是处理函数，拦截对应的操作
+    const proxy = new Proxy({}, {
+        //get方法拦截对目标属性访问请求，target参数是目标对象，property参数是要访问的属性
+        get: function (target, property) {
+            return 35
+        }
+    })
+
+    //get()，用于拦截某个属性读取操作
+    const person = {
+        name: 'Tom'
+    }
+
+    const proxy1 = new Proxy(person, {
+        get: function (target, property) {
+            if (property in target) {
+                return target[property]
+            } else {
+                return 'No such property'
+            }
+        }
+    })
+
+    console.log(proxy1.name) //Tom
+    console.log(proxy1.age) //No such property
+    //如果不用proxy，只会返回undefined
+    console.log(person.age) //undefiled 
+
+    //使用get拦截器实现数组读取负数索引
+    function createArray(...elements) {
+        let handler = {
+            get(target, propKey, receiver) {
+                let index = Number(propKey)
+                if (index < 0) {
+                    propKey = String(target.length + index)
+                }
+                return Reflect.get(target, propKey,receiver)
+            }
+        }
+        let target = []
+        target.push(...elements)
+        return new Proxy(target, handler)
+    }
+
+    let  arr = createArray(1,2,3,4,5)
+    console.log(arr[-1]) //5
+
+
+</script>
+
+</html>
