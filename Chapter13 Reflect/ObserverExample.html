@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    //使用Proxy，和Reflect实现观察者模式
+    
+    //观察者触发函数队列
+    const queueObservers = new Set()
+
+    //观察者触发函数注册函数
+    const observe = fn => queueObservers.add(fn)
+    //observable函数返回一个原始对象的Proxy代理，拦截赋值操作，触发充当观察者的各个函数
+    const observable = obj => new Proxy(obj, { set })
+    //定义Proxy拦截set后的新的行为
+    function set(target, key, value, receiver) {
+        //先利用Reflect执行默认的set行为
+        const result = Reflect.set(target, key, value, receiver)
+        //再执行观察者函数队列里面的函数
+        queueObservers.forEach(observer => observer())
+        return result
+    }
+
+    //person是一个Proxy实例，属性的set方法已经被拦截处理
+    const person = observable({
+        name: 'Tom',
+        age: 20
+    })
+
+    //定义一个观察者函数
+    function print() {
+        console.log(`${person.name}, ${person.age}`)
+    }
+
+    //注册这个观察者函数
+    observe(print)
+    //在person触发set函数时，触发观察者函数
+    person.name = 'Jack' //output Jack, 20
+
+</script>
+
+</html>
