@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+
+function timeout(ms) {
+    return new Promise((resolve, reject) =>{
+        //setTimeout的第三个参数是作为计时结束后传给第一个函数的参数，在这里就是通过resolve传出的结果
+        setTimeout(resolve, ms,'done')
+    })
+}
+
+timeout(2000).then((value) =>{
+    console.log(value)
+})
+
+</script>
+</html>

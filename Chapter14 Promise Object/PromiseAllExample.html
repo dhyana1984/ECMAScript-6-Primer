@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+//Promise.all 将多个Promise实例包装成一个新的Promise实例
+//const p = Promise.all([p1,p2,p3])
+
+const p1 = new Promise((resolve, reject)=>{
+    resolve('hello')
+})
+const p2 = new Promise((resolve, reject)=>{
+    throw new Error('Error!')
+}).then(result =>result)
+  .catch(e => e)
+
+  //p2会reject，但是p2有catch方法，返回一个新的promise，p2指向了新的promise，执行完catch以后会变成resolved
+  //所以Promise.all的两个参数都是resolved，只会执行then，catch不会执行
+  Promise.all([p1,p2])
+    .then(result => console.log(result))
+    .catch(e=>console.log(e))
+
+</script>
+</html>
