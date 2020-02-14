@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    //generator函数在function之后带星号
+    function* helloWorldGenerator() {
+        yield 'hello' //每次返回一个状态
+        yield 'world'
+        return 'ending'
+    }
+
+    //generator函数实际上返回一个遍历器
+    const hw = helloWorldGenerator()
+
+    console.log(hw.next()) //返回每个yield的状态，直到返回return
+    console.log(hw.next()) // {value:'world', done:false}
+    console.log(hw.next()) // {value:'ending', done:true}
+    console.log(hw.next()) //{ value:undefined, done : true}
+
+    //手动惰性求值
+    function* gen(){
+        yield 123+456
+    }
+    const g = gen() // gen函数内的表达式不会马上执行，gen()返回一起遍历器
+    console.log(g.next())//只有在g调用next()时，才会执行yield 后年的表达式  //{value: 579, done: false}
+</script>
+
+</html>
