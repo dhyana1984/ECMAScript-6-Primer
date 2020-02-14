@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+    function* inner() {
+        yield 'hello!'
+    }
+
+    function* outer1() {
+        yield 'open'
+        yield inner()
+        yield 'close'
+    }
+
+    var gen = outer1()
+    gen.next().value // open
+    gen.next().value //此时返回一个遍历器对象，即inner()
+    gen.next().value // close
+
+    function* outer2() {
+        yield 'open'
+        yield* inner() //如果yeild后面是一个遍历器对象，那么需要在yield后面加上星号，表明返回的是一个遍历器对象的遍历结果
+        yield 'close'
+    }
+    var gen = outer2()
+    gen.next().value // open
+    gen.next().value // hello 使用yield* inner()返回的是inner遍历的结果
+    gen.next().value //close
+
+    //Generator函数没有return语句时，yield*等同于在Generator函数内部部署一个for...if循环
+    function* concat(iter1, iter2) {
+        yield* iter1
+        yield* iter2
+    }
+    //等同于, 没有return时，yield*后面的Generator函数时for...of的简写
+    function* concat(iter1, iter2) {
+        for (var value in iter1) {
+            yield value
+        }
+        for (var value in iter2) {
+            yield value
+        }
+        //如果有return
+        //var value = yield* iterator获取return的值
+    }
+
+    //利用*yield去除嵌套数组的所有成员
+    function* iterTree(tree) {
+        if (Array.isArray(tree)) {
+            for (let i = 0; i < tree.length; i++) {
+                yield* iterTree(tree[i])
+            }
+        } else {
+            yield tree
+        }
+    }
+    const tree = ['a', ['b', 'c', ['d', 'e', 'f']], 'g', ['h', 'i']]
+    console.log([...iterTree(tree)]) // [a,b,c,d,e,f,g,h,i]
+
+    //使用*yield遍历二叉树
+
+    //定义树
+    function Tree(left, label, right) {
+        this.left = left
+        this.right = right
+        this.label = label
+    }
+
+    function* inorder(t) {
+        yield* inorder(t.left)
+        yield t.label
+        yield* inorder(t.right)
+    }
+
+    //如果一个对象的属性是Generator
+    let obj = {
+        * myGenerator() {
+            yield 1
+        },
+        //等价于
+        secondGenerator: function* () {
+            yield 2
+        }
+    }
+
+
+</script>
+
+</html>
