@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function* foo(x) {
+            var y = 2 * (yield (x + 1))
+            var z = yield (y / 3)
+            return (x + y + z)
+        }
+
+        
+        var a = foo(5)
+        //第一个next不用加参数
+        a.next() // {value:6,done:false}
+        //此时next不带参数，造成y = 2 * undefined，所以z = yield (y/3)结果是NaN
+        a.next() // {value:NaN, done:false}
+        // 同样， y和z都是undefined，x+ y + y是NaN
+        a.next() // {value:NaN, done:true}
+
+        var b = foo(5)
+        b.next() // {value:6,done:false}
+        //此时next参数是12，造成y = 2 *12 =24，所以z = yield (24/3)结果是8
+        a.next(12) // {value:8, done:false}
+        //此时next参数是13，造成z=13，x+y+z = 5+24+13=42
+        a.next(13) // {value:NaN, done:true}
+
+        //如果想要在第一次调用next就能够输入值，可以再Generator函数外面再包一层
+        function wrapper(generatorFunction){
+            return function (...args){
+                let generatorObject = generatorFunction(...args)
+                generatorObject.next()
+                return generatorObject
+            }
+        }
+
+        const wrapped = wrapper(function* () {
+            console.log(`First input: ${yield}`)
+            return 'DONE'
+        })
+
+        wrapped().next('Hello!') // First input: Hello!
+
+        //通过next方法的参数向Generator函数内部输入值
+
+        function* dataCustomer(){
+            console.log('Started')
+            console.log(`1. ${yield}`)
+            console.log(`2. ${yield}`)
+            return 'result'
+        }
+
+        const genObj = dataCustomer()
+        genObj.next() // Started
+        genObj.next('a') //1. a
+        genObj.next('b') //2. b
+
+    </script>
+</body>
+
+</html>
