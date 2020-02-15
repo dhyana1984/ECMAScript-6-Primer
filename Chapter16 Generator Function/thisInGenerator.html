@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //Generator函数总是返回一个遍历器，而不是this对象
+    function* g() {
+        this.a = 11
+    }
+    let obj = g()
+    obj.a //undefined, g()不返回this
+
+    //
+    function* F() {
+        this.a = 1
+        yield this.b = 2
+        yield this.c = 3
+    }
+    const obj1 = {}
+    const f = F.call(obj1) //F内部this绑定到obj1，然后调用F，返回一个F的遍历器对象f,obj1是F的实例对象
+
+    console.log(f.next()) //{value:2, done :false}，并且执行this.a =1 和 this.b=2，绑定a, b
+    console.log(f.next()) //{value:3, done :false}，执行this.c=3，绑定c
+    console.log(f.next()) //{value:undefined, done :true}
+
+    console.log(obj1.a) // 1
+    console.log(obj1.b) // 2
+    console.log(obj1.c) // 3
+
+    //如果要把obj1(F的实例对象)和f(F的遍历器对象)统一成一个
+    //方法是将obj1换成F.prototype
+    //f1就是统一后的结果
+    const f1 = F.call(F.prototype)
+    console.log(f1.next()) //{value:2, done :false}，并且执行this.a =1 和 this.b=2，绑定a, b
+    console.log(f1.next()) //{value:3, done :false}，执行this.c=3，绑定c
+    console.log(f1.next()) //{value:undefined, done :true}
+
+    console.log(f1.a) // 1
+    console.log(f1.b) // 2
+    console.log(f1.c) // 3
+
+    //此时将F改造成构造函数，就可以用new了
+    function* gen(){
+        this.a = 1
+        yield this.b = 2
+        yield this.c = 3
+    }
+
+    function F1(){
+        return gen.call(gen.prototype)
+    }
+
+    const f2 = new F1()
+
+    console.log(f2.next()) //{value:2, done :false}，并且执行this.a =1 和 this.b=2，绑定a, b
+    console.log(f2.next()) //{value:3, done :false}，执行this.c=3，绑定c
+    console.log(f2.next()) //{value:undefined, done :true}
+
+    console.log(f2.a) // 1
+    console.log(f2.b) // 2
+    console.log(f2.c) // 3
+
+
+</script>
+
+</html>
