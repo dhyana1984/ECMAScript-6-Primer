@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //Thunk是函数传名调用的实现，即将函数的参数放到一个临时函数中，再将这个临时函数传入函数体内，这个临时函数就是Thunk函数
+    function f(m){
+        return m*2
+    }
+
+    f(x+5)
+    //等同于
+    const thunk = () => x+5
+
+    function f1(thunk) {
+        return thunk() *2
+    }
+
+    //正常版本的readFile,即多参数版本
+    fs.readFile(filename, Callback)
+
+    //Thunk版本的readFile， 单参数版本
+    const Thunk = function (filename) {
+        return function (callback) {
+            return fs.readFile(filename, callback)
+        }
+    }
+
+    //第一步传入filename，并且得到Thunk函数
+    const readFileThunk = Thunk(fileName)
+    //第二部调用Thunk函数，执行fs.readFile
+    readFileThunk(callback)
+
+
+</script>
+</html>
