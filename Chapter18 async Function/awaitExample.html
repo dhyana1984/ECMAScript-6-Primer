@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    //正常情况下，await命令后面是一个Promise对象，如果不是，会被转成一个立即resolve的Promise对象
+    async function f() {
+        return await 123    //被转成Promise对象并且立即resolve
+    }
+    f().then(res => console.log(res))// 123
+
+    //await 后面Promise对象如果变成reject，则reject的参数会被catch方法回调函数接受 
+    async function fError() {
+        await Promise.reject('Error!') //await 后加不加return效果一样，因为只要reject，整个async中断执行
+    }
+
+    fError()
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+
+    //如果不想出现reject就中断，有两种办法
+    //第一是在前面的await内容放在try...cach中
+    async function fTryCatch() {
+        try {
+            await Promise.reject('Error!') //不会中断整个fTryCatch函数
+        } catch (e) {
+            console.log(e)
+        }
+        return await Promise.resolve('Hello world')
+    }
+    fTryCatch().then(res => console.log(res)) // Hello world
+
+    //第二种是在await后面的Promise对象后添加一个catch方法，处理前面可能出现的错误
+    async function fcatch() {
+        await Promise.reject('Error fcatch').catch(e => console.log(e)) //不会中断整个fcatch
+        return await Promise.resolve('Success fcatch!')
+    }
+
+    fcatch().then(res => console.log(res))
+</script>
+
+</html>
