@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+
+
+//async 函数会返回一个Promise对象
+//async函数内部return语句返回的值，会成为then方法回调函数的参数
+async function f() {
+    return 'Hello world!'
+}
+
+f().then(res => console.log(res)) // Hello world!
+
+//async内部错误会在then的第二个callback函数内作为参数被调用
+async function fError() {
+    throw new Error('Errors!')
+}
+
+fError().then(res => console.log(res), err => console.log(err)) // Errors!
+
+//async函数的实现原理就是将Generator函数和自动执行器包装在一个函数里
+async function fn(args){
+    //...
+}
+
+//等同于
+function fn(args){
+    //spawn就是自动执行器
+    return spawn(function* (){
+        //...
+    })
+}
+
+</script>
+</html>
