@@ -25,6 +25,13 @@ var promise = new Promise(function(resolve, reject) {
     }
 })
 
+//在Promise实例生成以后，可以用then方法分别指定Resolved状态和Rejected状态的回调函数
+promise.then(function(value){
+    // success
+}, function(error){
+    //failure
+})
+
 
 function timeout(ms) {
     return new Promise((resolve, reject) =>{
