@@ -11,6 +11,21 @@
 
 <script>
 
+//Promise接受一个函数作为参数，该函数的两个参数分别是resolve和reject，这是两个函数，有js引擎提供，不需要自己部署
+var promise = new Promise(function(resolve, reject) {
+    //…
+    if(/*异步操作成功*/){
+        //resolve的作用是， 将Promise对象的状态从未完成变为成功，即从pending变为resolved，
+        //在异步调用成功时调用，并将异步操作结果作为参数传递出去
+        resolve(value) // value是异步操作的结果
+    }else{
+        //reject的作用将Promise的状态从未完成变为失败，即pending变为rejected，
+        //在异步调用失败时调用，并将异步操作的错误作为参数传出
+         reject(error) // error是异步操作的错误
+    }
+})
+
+
 function timeout(ms) {
     return new Promise((resolve, reject) =>{
         //setTimeout的第三个参数是作为计时结束后传给第一个函数的参数，在这里就是通过resolve传出的结果
