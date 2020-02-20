@@ -59,6 +59,18 @@
     } 
     //a
     //b
+    
+//用Generator函数将普通对象包装成可遍历对象
+function* entries(object){
+    for(let key of Object.keys(object)){
+        Yield [key, object[key]]
+    }
+}
+//使用
+for(let [key,value] of entris(obj)){
+    console.log(key,’=>’,value)
+}
+
 </script>
 
 </html>
