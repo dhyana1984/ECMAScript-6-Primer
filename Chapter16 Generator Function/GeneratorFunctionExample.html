@@ -33,6 +33,15 @@
     }
     const g = gen() // gen函数内的表达式不会马上执行，gen()返回一起遍历器
     console.log(g.next())//只有在g调用next()时，才会执行yield 后年的表达式  //{value: 579, done: false}
+    
+    如果yield表达式如果在另一个表达式之中，必须放在圆括号里面
+    function* demo(){    
+    console.log(‘hello’+yield)         // 错误
+    console.log(‘hello’+yield 123)     // 错误
+    console.log(‘hello’+(yield))       // 正确 
+    console.log(‘hello’+(yield 123))   // 正确 
+}
+
 </script>
 
 </html>
