@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="./MyModule.js" defer>//defer是等正业页面正常渲染结束才会执行</script> 
+<script src="./MyModule.js" async>//async是一旦下载完成，渲染引擎中断，执行这个脚本再继续渲染</script>
+<script src="./MyModule.js" type="module">//加载es6模块要加入type="module"，等同于defer，也是异步加载，也可以显示用async</script>
+</html>
