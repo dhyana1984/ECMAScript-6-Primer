@@ -1,8 +1,8 @@
-// @decorator
-// class A{}
-// //等同
-// class A{}
-// A = decorator(A) || A
+@decorator
+class A{}
+//等同
+class A{}
+A = decorator(A) || A
 
 function testable(isTestable) {
     return function (target) {

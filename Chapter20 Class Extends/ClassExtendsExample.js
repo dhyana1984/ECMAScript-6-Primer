@@ -31,7 +31,8 @@ class B extends A{
         this.x = 2
         //通过super调用父类方法时，super会绑定子类的this
         super.x =3 //子类中给super的属性赋值，相当于在给this的属性赋值，所这里等于this.x=3
-        console.log(super.x) //子类中读取super的属性时，相当于在读取父类原型上的属性，这里等于A.prototype.x 所以结果是undefined
+        console.log(super.x) //子类中读取super的属性时，相当于在读取父类原型上的属性，这里等于A.prototype.x 所以结果是1
+        console.log(this.x) //3
     }
 
     get m (){
@@ -43,8 +44,12 @@ class B extends A{
     }
 }
 
-let b = new B() //因为类B中,m方法里面super.p找不到，所以返回undefined
-b.m //undefined
+let b = new B() 
+//1
+//3
+
+
+b.m // undefined
 b.n //1
 
 class Parent{
